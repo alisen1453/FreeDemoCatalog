@@ -1,0 +1,6 @@
+@FreeDomeCatalog.Catalog_HostAddress = http://localhost:5068
+
+GET {{FreeDomeCatalog.Catalog_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
