@@ -19,8 +19,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FreeDemoCategory.Core\FreeDemoCategory.Core.csproj" />
-  </ItemGroup>
-
 </Project>

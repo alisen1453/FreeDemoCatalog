@@ -1,10 +1,6 @@
-﻿
-
-using FreeDemoCategory.Core.Entities;
-
-namespace FreeDomeCatalog.Catalog.Models
+﻿namespace FreeDemoCatalog.Entities.Entity.Models
 {
-    public class Note: IEntity
+    public class Note
     {
         public Guid NoteId { get; set; }
         public string? NoteName { get; set; }

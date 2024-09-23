@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreeDomeCatalog.Catalog.Migrations
 {
     [DbContext(typeof(CategoryDbContext))]
-    [Migration("20240907093519_Mig1")]
-    partial class Mig1
+    [Migration("20240921083402_Mig2")]
+    partial class Mig2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace FreeDomeCatalog.Catalog.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FreeDomeCatalog.Catalog.Models.Category", b =>
+            modelBuilder.Entity("FreeDemoCatalog.Entities.Entity.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,7 +35,6 @@ namespace FreeDomeCatalog.Catalog.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -43,7 +42,7 @@ namespace FreeDomeCatalog.Catalog.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("FreeDomeCatalog.Catalog.Models.Note", b =>
+            modelBuilder.Entity("FreeDemoCatalog.Entities.Entity.Models.Note", b =>
                 {
                     b.Property<Guid>("NoteId")
                         .ValueGeneratedOnAdd()
@@ -68,13 +67,18 @@ namespace FreeDomeCatalog.Catalog.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("FreeDomeCatalog.Catalog.Models.Note", b =>
+            modelBuilder.Entity("FreeDemoCatalog.Entities.Entity.Models.Note", b =>
                 {
-                    b.HasOne("FreeDomeCatalog.Catalog.Models.Category", "NoteCategory")
-                        .WithMany()
+                    b.HasOne("FreeDemoCatalog.Entities.Entity.Models.Category", "NoteCategory")
+                        .WithMany("Notes")
                         .HasForeignKey("NoteCategoryId");
 
                     b.Navigation("NoteCategory");
+                });
+
+            modelBuilder.Entity("FreeDemoCatalog.Entities.Entity.Models.Category", b =>
+                {
+                    b.Navigation("Notes");
                 });
 #pragma warning restore 612, 618
         }

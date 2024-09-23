@@ -16,7 +16,7 @@ namespace IdentityServer.Controllers
 
     public sealed class IdentityConroller(UserManager<UsersConfrim> userManager) : ControllerBase
     {
-        [HttpPost]
+        [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser(UsersDto userDto,CancellationToken cancellationToken)
         {
             UsersConfrim usersConfrim = new()

@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FreeDemoCatalog.Entities\FreeDemoCatalog.Entities.csproj" />
+    <ProjectReference Include="..\FreeDemoCategory.Core\FreeDemoCategory.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Abstract\" />
   </ItemGroup>
 
 </Project>
