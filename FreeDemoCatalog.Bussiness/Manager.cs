@@ -19,7 +19,7 @@ namespace FreeDemoCatalog.Bussiness
         {
             return await _repository.GetByIdAsync(id);
         }
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }

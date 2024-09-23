@@ -11,8 +11,8 @@ namespace FreeDomeCatalog.Catalog.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-  // [Authorize(LocalApi.PolicyName)]
-    public class CategoryController: ControllerBase
+    // [Authorize(LocalApi.PolicyName)]
+    public class CategoryController : ControllerBase
 
     {
         private readonly IServices<Category> services;
@@ -24,26 +24,30 @@ namespace FreeDomeCatalog.Catalog.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetAll()
         {
-            var products = await services.GetAllAsync();
-            return Ok(products);
+
+
+            // Örnek veri
+            var data = await services.GetAllAsync();
+
+            // Başarılı yanıt (birden fazla mesaj ile)
+            var response = new ApiResponse<List<Category>>(200, data, new List<string> { "Data GetAllAsync successfully" });
+            return Ok(response);
         }
+    
         [HttpPost]
         public async Task<IActionResult> Add(Category category)
         {
            
             var data = await services.CreateAsync(category);
-            var response =new ErrorResponse<Category>(data,"Data saved",200);
+            var response =new ApiResponse<Category>(200,data, new List<string> { "Data Add successfully" });
             return Ok(response);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var product = await services.GetByIdAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return Ok(product);
+            var response = new ApiResponse<Category>(200,product, new List<string> { "Data GetById successfully" });
+            return Ok(response);
         }
 
         [HttpPut("{id}")]

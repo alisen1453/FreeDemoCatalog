@@ -23,7 +23,7 @@ namespace FreeDemoCatalog.DataAccess.Repositories
         {
             return await _dbSet.FindAsync(id);
         }
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
