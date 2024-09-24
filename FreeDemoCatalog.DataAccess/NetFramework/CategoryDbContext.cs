@@ -30,6 +30,7 @@ namespace FreeDomeCatalog.Catalog.DataAccess
                 .Property(c => c.Description)
                 .HasColumnName("CategoryDescription")
                 .HasMaxLength(200);
+                modelBuilder.Entity<Category>.HasOptional(c=>c.Category).WitMany(c=c.Note).HasForeignKey(c=>c.CategoryId);
 
 
         }
