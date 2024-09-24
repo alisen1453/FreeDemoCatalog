@@ -35,7 +35,7 @@ namespace FreeDomeCatalog.Catalog.Controllers
         }
     
         [HttpPost]
-        public async Task<IActionResult> Add(Category category)
+        public async Task<IActionResult> Add(CategoryModel category)
         {var categorys=new Category
             {
                 Name = category.Name,
