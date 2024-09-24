@@ -36,11 +36,31 @@ namespace FreeDomeCatalog.Catalog.Controllers
     
         [HttpPost]
         public async Task<IActionResult> Add(Category category)
-        {
+        {var categorys=new Category
+            {
+                Name = category.Name,
+                Description = category.Description,
+            };
+
+            if (!ModelState.IsValid)
+            {
+                 var data = await services.CreateAsync(category);
+                var successResponse = new ApiResponse<Category>(data, new List<string> { "Category Add Data successfully" });
+                return Ok(successResponse);
+
+            }
+            else
+            {
+                var errorMessages = ModelState.Values
+                          .SelectMany(v => v.Errors)
+                          .Select(e => e.ErrorMessage)
+                          .ToList();
+
+                var errorResponse = new ApiResponse<Category>(null, errorMessages);
+                return BadRequest(errorResponse);
+            }
            
-            var data = await services.CreateAsync(category);
-            var response =new ApiResponse<Category>(200,data, new List<string> { "Data Add successfully" });
-            return Ok(response);
+         
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
