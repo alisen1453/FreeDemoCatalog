@@ -1,0 +1,101 @@
+
+using FreeDemoCatalog.Bussiness;
+using FreeDemoCatalog.Bussiness.Services;
+using FreeDemoCatalog.Entities.Entity.ModelDto;
+using FreeDemoCatalog.Shared.Services;
+using FreeDomeCatalog.Catalog.Filters;
+using FreeDomeCatalog.Catalog.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using respons1.Response;
+using static IdentityServer4.IdentityServerConstants;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace FreeDomeCatalog.Catalog.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    // [Authorize(LocalApi.PolicyName)]
+    public class CategoryController : CustomControlBase
+
+    {
+        private readonly ICategoryServices<Category> _services;
+
+        public CategoryController(ICategoryServices<Category> services)
+        {
+            _services = services;
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(Guid Id)
+        {
+            var data = await _services.GetById(Id);
+
+            var successResponse = new ApiResponse<Category>(data, new List<string> { "Category GetById List successfully" });
+            return Ok(successResponse);
+
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var data = await _services.GetAll();
+            var successResponse = new ApiResponse<List<Category>>(data, new List<string> { "Category GetAll List successfully" });
+            return Ok(successResponse);
+        }
+
+        [HttpPost]
+        [ModelValidationFilters]
+        public async Task<IActionResult> AddData(CategoryDto category)
+        {
+
+            try
+            {
+                var categorys = new Category
+                {
+                    Name = category.Name,
+                    Description = category.Description,
+                };
+                var data = await _services.Add(categorys);
+                var successResponse = new ApiResponse<Category>(data, new List<string> { "Category Add Data successfully" });
+                return Ok(successResponse);
+
+            }
+            catch (Exception ex)
+            {
+
+                var errorResponse = new ApiResponse<Category>( new List<string> { ex.Message });
+                return BadRequest(errorResponse);
+            }
+
+           
+
+
+        }
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            var Find = await _services.GetById(Id);
+            var data = await _services.Delete(Find);
+            var successResponse = new ApiResponse<Category>(data, new List<string> { "Category Delete Data successfully" });
+            return Ok(successResponse);
+
+        }
+        [HttpPut("{name}")]
+        public async Task<IActionResult> GetEx(string name)
+        {
+
+            var data = await _services.GetEx(c => c.Name == name);
+            if (data!=null)
+            {
+                var ErrorResponse = new ApiResponse<List<Category>>(new List<string> { "Category List by Name Notsuccessfully" });
+            }
+            var successResponse = new ApiResponse<List<Category>>(data, new List<string> { "Category List by Name successfully" });
+            return Ok(successResponse);
+
+        }
+
+    }
+
+}
