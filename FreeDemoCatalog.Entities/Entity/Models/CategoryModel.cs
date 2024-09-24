@@ -1,6 +1,6 @@
 ﻿namespace FreeDomeCatalog.Catalog.Models
 {
-    public class CategoryModel
+    public class CategoryDto
     {
          [Required(ErrorMessage = "Kategory boş greçilemez")]
         [MaxLength(20, ErrorMessage = "En fazla 20 karakter"), MinLength(5, ErrorMessage = "Minimum 5 karakter")]
